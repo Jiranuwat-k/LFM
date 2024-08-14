@@ -42,6 +42,7 @@ boolean PauseState = false;
 boolean StatusLabelUpdate = false;
 boolean SetupStatus = false;
 boolean KeyTimeout = false; // on-off Check TimeOut Keypad
+int KeyTime = 1000;
 int PauseCount = 0;
 int RunCount = 0;
 int WCSum = 0;

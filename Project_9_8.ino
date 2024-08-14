@@ -144,7 +144,7 @@ void loop() {
     button.update();
   }
   if (PumpStart) {
-
+    UpdateRing(1); // running update
   }
   /*** Timer-Counter ***/
   if (PumpStart && millis() - PumpLastTime >= TimeUse) {
@@ -194,6 +194,12 @@ void KeyProcess() {
   if (key) {
     KeyStr[Kindex] = key;
     Kindex++;
+    KeyTimeout = true;
+    KeypadLastTime = millis();
+  }
+  if(KeyTimeout && (millis() - KeypadLastTime >= KeyTime)){
+    Kindex = 0;
+    KeyTimeout = false;
   }
   if (Kindex == 2) {
     if (act_tab == 0) {
