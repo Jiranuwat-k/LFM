@@ -8,9 +8,18 @@
 bool ESPRestart = false;
 bool ResetConf = false;
 bool WAStatus = true;
+int Poffset = 0;
 void WAEvent(lv_event_t * e)
 {
   WAStatus = !WAStatus;
+}
+
+void SetOffset(lv_event_t * e)
+{
+  Poffset = (int)lv_slider_get_value(ui_Main_Slider1);
+  char buf[16];
+  lv_snprintf(buf, sizeof(buf), "Set Offset %d %%", Poffset);
+  lv_label_set_text(ui_Main_Label8, buf);
 }
 
 void ResetSystem(lv_event_t * e)

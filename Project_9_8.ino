@@ -56,6 +56,7 @@ void setup() {
   float t = GetTime(FlowRate, Vols);
   TimeUse = t + (t * PrecentOffset / 100);
   SaveTimeUse = TimeUse;
+  UpdateRing(0);
   LoaddingPageTime = millis();
   last = millis();
 }
@@ -101,7 +102,7 @@ void loop() {
       }
       WaterState = bool(WCVal);
       // ReConfig WaterState if WAStatus off
-      if (!WAStatus) {
+      if (!WAStatus){
         WaterState = false;
       }
       if (ESPRestart) {
@@ -113,7 +114,6 @@ void loop() {
         LoadConf();
         updateVol = true;
       }
-
       if (WaterState != LastWaterState || StatusLabelUpdate) {
         digitalWrite(PILOT, WaterState);
         if (WaterState) {
@@ -201,8 +201,8 @@ void KeyProcess() {
     Kindex = 0;
     KeyTimeout = false;
   }
-  if (Kindex == 2) {
-    if (act_tab == 0) {
+  if (act_tab == 0) {
+    if (Kindex == 2) {
       switch (KeyStr[0]) {
         case 'D':
           switch (KeyStr[1]) {
@@ -244,8 +244,49 @@ void KeyProcess() {
           }
           break;
       }
+      Kindex = 0;
     }
-    Kindex = 0;
+  }else if(act_tab == 1){
+    int SvUnit = lv_dropdown_get_selected(ui_Main_SVUnit);
+    if(SvUnitLast != SvUnit){
+      lv_spinbox_set_digit_format(ui_Main_SVSpinbox, 3, (SvUnit)?2:3);
+    }
+    SvUnitLast = SvUnit;
+    switch(key){
+      case 'A':
+        SetIndex = 0;
+        break;
+      case 'B':
+        SetIndex = 1;
+      case '1':
+        lv_spinbox_set_cursor_pos((SetIndex == 1)?ui_Main_SFSpinbox:ui_Main_SVSpinbox, 1);
+        break;
+      case '2':
+        lv_spinbox_set_cursor_pos((SetIndex == 1)?ui_Main_SFSpinbox:ui_Main_SVSpinbox, 2);
+        break;
+      case '3':
+        lv_spinbox_set_cursor_pos((SetIndex == 1)?ui_Main_SFSpinbox:ui_Main_SVSpinbox, 3);
+        break;
+      case '*':
+        lv_spinbox_decrement((SetIndex == 1)?ui_Main_SFSpinbox:ui_Main_SVSpinbox);
+        break;
+      case '#':
+        lv_spinbox_increment((SetIndex == 1)?ui_Main_SFSpinbox:ui_Main_SVSpinbox);
+        break;
+      case 'D':
+        ChangeData = true;
+        break;
+    }
+    if (ChangeData){
+      VolRaw = lv_spinbox_get_value(ui_Main_SVSpinbox);
+      FRRaw = lv_spinbox_get_value(ui_Main_SFSpinbox);
+      VolCustom = VolRaw/(SvUnit)?1.0:1000.0;
+      int SFUnit = lv_dropdown_get_selected(ui_Main_SFUnit);
+      FlowRate = FRRaw /(SFUnit)? 3600.0 : 60.0;
+      PrecentOffset = Poffset;
+      updateVol = true;
+      ChangeData = false;
+    }
   }
 }
 float GetTime(float FlowRate, float Volume) {
@@ -262,12 +303,23 @@ void LoadConf() {
   WAStatus = preferences.getBool("WAS", true); // true
   PrecentOffset = preferences.getInt("PO", 0); // 0
   Vols = preferences.getFloat("Vol", 0.6); // L
+  VolCustom = preferences.getFloat("CVol", 0.6);
+  if(WAStatus){
+    lv_obj_add_state(ui_Main_WALabel, LV_STATE_CHECKED);
+  }else{
+    lv_obj_remove_state(ui_Main_WALabel, LV_STATE_CHECKED);
+  }
+  char buf[16];
+  lv_snprintf(buf, sizeof(buf), "Set Offset %d %%", PrecentOffset);
+  lv_label_set_text(ui_Main_Label8, buf);
+  lv_slider_set_value(ui_Main_Slider1, PrecentOffset, LV_ANIM_OFF);
 }
 void SaveConf() {
   preferences.putFloat("FR", FlowRate); // L/SEC
   preferences.putBool("WAS", WAStatus); // true
   preferences.putInt("PO", PrecentOffset); // 0
   preferences.putFloat("Vol", Vols); // L
+  preferences.getFloat("CVol", VolCustom);
 }
 void UpdateRing(int Mode) {
   char Volbuf[6];

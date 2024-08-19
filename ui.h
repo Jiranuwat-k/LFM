@@ -61,6 +61,7 @@ extern lv_obj_t * ui_Main_WASwitch;
 extern lv_obj_t * ui_Main_LeftContainer;
 extern lv_obj_t * ui_Main_Container2;
 extern lv_obj_t * ui_Main_Label8;
+void ui_event_Main_Slider1(lv_event_t * e);
 extern lv_obj_t * ui_Main_Slider1;
 extern lv_obj_t * ui_Main_SystemContainer;
 void ui_event_Main_ResetBtn(lv_event_t * e);
@@ -75,6 +76,7 @@ extern lv_obj_t * ui_Main_InfoText;
 extern bool ESPRestart;
 extern bool ResetConf;
 extern bool WAStatus;
+extern int Poffset;
 // SCREEN: ui_DashboardFull
 void ui_DashboardFull_screen_init(void);
 extern lv_obj_t * ui_DashboardFull;

@@ -190,7 +190,7 @@ void ui_Main_screen_init(void)
     lv_obj_set_x(ui_Main_SVLabel, -41);
     lv_obj_set_y(ui_Main_SVLabel, -16);
     lv_obj_set_align(ui_Main_SVLabel, LV_ALIGN_CENTER);
-    lv_label_set_text(ui_Main_SVLabel, "Set Volume");
+    lv_label_set_text(ui_Main_SVLabel, "Set Volume   (A)");
 
     ui_Main_SVSpinbox = lv_spinbox_create(ui_Main_VolContainer);
     lv_obj_set_width(ui_Main_SVSpinbox, 70);
@@ -198,10 +198,11 @@ void ui_Main_screen_init(void)
     lv_obj_set_x(ui_Main_SVSpinbox, -161);
     lv_obj_set_y(ui_Main_SVSpinbox, -72);
     lv_obj_set_align(ui_Main_SVSpinbox, LV_ALIGN_CENTER);
-    lv_spinbox_set_digit_format(ui_Main_SVSpinbox, 5, 3);
-    lv_spinbox_set_range(ui_Main_SVSpinbox, 10000, 99999);
+    lv_spinbox_set_digit_format(ui_Main_SVSpinbox, 3, 3);
+    lv_spinbox_set_range(ui_Main_SVSpinbox, 100, 999);
     lv_spinbox_set_cursor_pos(ui_Main_SVSpinbox, 1 - 1);
-    lv_spinbox_set_value(ui_Main_SVSpinbox, 10000);
+    lv_spinbox_set_value(ui_Main_SVSpinbox, 600);
+    lv_obj_set_style_text_align(ui_Main_SVSpinbox, LV_TEXT_ALIGN_CENTER, LV_PART_MAIN | LV_STATE_DEFAULT);
 
     ui_Main_SVUnit = lv_dropdown_create(ui_Main_VolContainer);
     lv_dropdown_set_options(ui_Main_SVUnit, "mL\nL");
@@ -237,7 +238,7 @@ void ui_Main_screen_init(void)
     lv_obj_set_x(ui_Main_SFLabel, -41);
     lv_obj_set_y(ui_Main_SFLabel, -16);
     lv_obj_set_align(ui_Main_SFLabel, LV_ALIGN_CENTER);
-    lv_label_set_text(ui_Main_SFLabel, "Set Flowrate");
+    lv_label_set_text(ui_Main_SFLabel, "Set Flowrate (B)");
 
     ui_Main_SFSpinbox = lv_spinbox_create(ui_Main_FlowContainer);
     lv_obj_set_width(ui_Main_SFSpinbox, 70);
@@ -245,13 +246,14 @@ void ui_Main_screen_init(void)
     lv_obj_set_x(ui_Main_SFSpinbox, -161);
     lv_obj_set_y(ui_Main_SFSpinbox, -72);
     lv_obj_set_align(ui_Main_SFSpinbox, LV_ALIGN_CENTER);
-    lv_spinbox_set_digit_format(ui_Main_SFSpinbox, 5, 3);
-    lv_spinbox_set_range(ui_Main_SFSpinbox, 10000, 99999);
+    lv_spinbox_set_digit_format(ui_Main_SFSpinbox, 3, 3);
+    lv_spinbox_set_range(ui_Main_SFSpinbox, 1, 999);
     lv_spinbox_set_cursor_pos(ui_Main_SFSpinbox, 1 - 1);
-    lv_spinbox_set_value(ui_Main_SFSpinbox, 10000);
+    lv_spinbox_set_value(ui_Main_SFSpinbox, 5);
+    lv_obj_set_style_text_align(ui_Main_SFSpinbox, LV_TEXT_ALIGN_CENTER, LV_PART_MAIN | LV_STATE_DEFAULT);
 
     ui_Main_SFUnit = lv_dropdown_create(ui_Main_FlowContainer);
-    lv_dropdown_set_options(ui_Main_SFUnit, "mL/s\nL/s\nmL/m\nL/m\nL/h");
+    lv_dropdown_set_options(ui_Main_SFUnit, "L/m\nL/h");
     lv_obj_set_width(ui_Main_SFUnit, 90);
     lv_obj_set_height(ui_Main_SFUnit, LV_SIZE_CONTENT);    /// 1
     lv_obj_set_x(ui_Main_SFUnit, -76);
@@ -320,7 +322,7 @@ void ui_Main_screen_init(void)
     lv_obj_set_width(ui_Main_Label8, lv_pct(75));
     lv_obj_set_height(ui_Main_Label8, LV_SIZE_CONTENT);    /// 1
     lv_obj_set_align(ui_Main_Label8, LV_ALIGN_CENTER);
-    lv_label_set_text(ui_Main_Label8, "Set Offset");
+    lv_label_set_text(ui_Main_Label8, "Set Offset 0 %");
     lv_obj_set_style_pad_left(ui_Main_Label8, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_pad_right(ui_Main_Label8, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_pad_top(ui_Main_Label8, 0, LV_PART_MAIN | LV_STATE_DEFAULT);

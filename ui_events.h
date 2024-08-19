@@ -11,6 +11,7 @@ extern "C" {
 #endif
 
 void WAEvent(lv_event_t * e);
+void SetOffset(lv_event_t * e);
 void ResetSystem(lv_event_t * e);
 void RebootSystem(lv_event_t * e);
 

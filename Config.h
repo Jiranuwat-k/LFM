@@ -31,9 +31,13 @@ lv_obj_t * act_scr;
 int act_tab;
 float VolDataSet[6] = {0.6, 1.0, 1.25, 1.5, 1.95, 10.0}; 
 float FlowRate; // (L/SEC) <FR>
-float PrecentOffset; // <PO>
+int PrecentOffset; // <PO>
 float Vols; // 0.6
-float VolCustom = 0.6;
+float VolCustom;
+int VolRaw;
+int FRRaw;
+int SvUnitLast = 0;
+bool ChangeData = false;
 bool updateVol = false;
 boolean LastWaterState = false;
 boolean WaterState = false;  // true - No water | false - Water ready
@@ -42,6 +46,7 @@ boolean PauseState = false;
 boolean StatusLabelUpdate = false;
 boolean SetupStatus = false;
 boolean KeyTimeout = false; // on-off Check TimeOut Keypad
+int SetIndex = 0;
 int KeyTime = 1000;
 int PauseCount = 0;
 int RunCount = 0;

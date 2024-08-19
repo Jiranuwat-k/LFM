@@ -57,6 +57,7 @@ lv_obj_t * ui_Main_WASwitch;
 lv_obj_t * ui_Main_LeftContainer;
 lv_obj_t * ui_Main_Container2;
 lv_obj_t * ui_Main_Label8;
+void ui_event_Main_Slider1(lv_event_t * e);
 lv_obj_t * ui_Main_Slider1;
 lv_obj_t * ui_Main_SystemContainer;
 void ui_event_Main_ResetBtn(lv_event_t * e);
@@ -129,6 +130,14 @@ void ui_event_Main_WASwitch(lv_event_t * e)
     lv_obj_t * target = lv_event_get_target(e);
     if(event_code == LV_EVENT_RELEASED) {
         WAEvent(e);
+    }
+}
+void ui_event_Main_Slider1(lv_event_t * e)
+{
+    lv_event_code_t event_code = lv_event_get_code(e);
+    lv_obj_t * target = lv_event_get_target(e);
+    if(event_code == LV_EVENT_VALUE_CHANGED) {
+        SetOffset(e);
     }
 }
 void ui_event_Main_ResetBtn(lv_event_t * e)
